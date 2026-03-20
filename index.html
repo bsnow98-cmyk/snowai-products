@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snow AI — Products</title>
+  <meta name="description" content="Snow AI builds thoughtful AI-powered apps that solve real problems for real people." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0F;
+      --bg2: #111117;
+      --bg3: #18181F;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.16);
+      --text: #F5F5F7;
+      --text2: #A1A1AA;
+      --text3: #71717A;
+      --accent: #EA580C;
+      --accent-glow: rgba(234,88,12,0.3);
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #EA580C, #F97316);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(234,88,12,0.4);
+    }
+
+    .logo-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .logo-name span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: white !important;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      background: #C94615 !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 96px 24px 80px;
+      text-align: center;
+    }
+
+    /* Glow blob behind hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(234,88,12,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(234,88,12,0.1);
+      border: 1px solid rgba(234,88,12,0.25);
+      color: #FB923C;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #EA580C, #F97316, #FBBF24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--text2);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text3);
+      font-weight: 500;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--text);
+      line-height: 1.15;
+    }
+
+    /* ── PRODUCTS GRID ── */
+    .products-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 24px 80px;
+    }
+
+    /* Featured product — full width */
+    .product-featured {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 400px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+
+    .product-featured:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+
+    .product-featured::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(234,88,12,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .product-content {
+      padding: 52px 52px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-content-inner { }
+
+    .product-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 13px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .status-live {
+      background: rgba(52,199,89,0.12);
+      color: #4ADE80;
+      border: 1px solid rgba(52,199,89,0.25);
+    }
+
+    .status-live::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #4ADE80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .status-building {
+      background: rgba(59,130,246,0.12);
+      color: #60A5FA;
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+
+    .status-building::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #60A5FA;
+      border-radius: 50%;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 5px rgba(74,222,128,0); }
+    }
+
+    .product-icon {
+      font-size: 44px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .product-name {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .product-tagline {
+      font-size: 16px;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 380px;
+    }
+
+    .product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text2);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary-product {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 16px rgba(234,88,12,0.3);
+    }
+
+    .btn-primary-product:hover {
+      background: #C94615;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(234,88,12,0.4);
+    }
+
+    .btn-secondary-product {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text2);
+    }
+
+    .btn-secondary-product:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    /* Product visual panel */
+    .product-visual {
+      background: var(--bg2);
+      border-left: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-visual::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .visual-orange::before { background: radial-gradient(circle, rgba(234,88,12,0.15) 0%, transparent 70%); }
+    .visual-rose::before   { background: radial-gradient(circle, rgba(244,63,94,0.15) 0%, transparent 70%); }
+    .visual-green::before  { background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%); }
+    .visual-purple::before { background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%); }
+
+    /* Phone mockup */
+    .phone-mock {
+      width: 200px;
+      background: #1C1C1E;
+      border-radius: 36px;
+      padding: 10px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .phone-screen-mock {
+      background: #F2F2F7;
+      border-radius: 28px;
+      overflow: hidden;
+    }
+
+    .phone-bar {
+      background: #1C1C1E;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+    }
+
+    .phone-notch {
+      width: 80px;
+      height: 10px;
+      background: #0A0A0F;
+      border-radius: 100px;
+    }
+
+    .phone-app {
+      padding: 14px;
+    }
+
+    .phone-header {
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 10px 10px 0 0;
+      margin: -14px -14px 10px;
+    }
+
+    .app-orange .phone-header { background: #EA580C; color: white; }
+
+    .phone-card {
+      background: white;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .phone-card-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #1C1C1E;
+      margin-bottom: 6px;
+    }
+
+    .phone-card-line {
+      height: 6px;
+      background: #E5E5EA;
+      border-radius: 3px;
+      margin-bottom: 4px;
+    }
+
+    .phone-card-line:last-child { width: 70%; margin-bottom: 0; }
+
+    .phone-pill {
+      display: inline-block;
+      background: #FFF0EA;
+      color: #EA580C;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+    }
+
+    /* ── GRID — 3 CARDS ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+    }
+
+    .card-top-bar {
+      height: 4px;
+      width: 100%;
+    }
+
+    .bar-rose   { background: linear-gradient(90deg, #881337, #f43f5e); }
+    .bar-green  { background: linear-gradient(90deg, #064e3b, #10b981); }
+    .bar-purple { background: linear-gradient(90deg, #3b0764, #a855f7); }
+    .bar-orange { background: linear-gradient(90deg, #7c2d12, #ea580c); }
+
+    .card-body {
+      padding: 32px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .card-name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .card-features {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .card-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text2);
+    }
+
+    .card-feature-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-rose   { background: #f43f5e; }
+    .dot-green  { background: #10b981; }
+    .dot-purple { background: #a855f7; }
+
+    .card-footer {
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-cta {
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--text2);
+      background: rgba(255,255,255,0.04);
+      transition: all 0.2s;
+    }
+
+    .card-cta:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .card-notify {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* ── STUDIO SECTION ── */
+    .studio-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .studio-card {
+      background: linear-gradient(135deg, var(--bg3) 0%, rgba(234,88,12,0.06) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .studio-card::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(234,88,12,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .studio-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .studio-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .studio-subtitle {
+      font-size: 17px;
+      color: var(--text2);
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .studio-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-studio-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(234,88,12,0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-studio-primary:hover {
+      background: #C94615;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(234,88,12,0.45);
+    }
+
+    .btn-studio-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-studio-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text3);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .product-featured {
+        grid-template-columns: 1fr;
+      }
+      .product-visual {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        min-height: 200px;
+        padding: 32px;
+      }
+      .phone-mock { width: 160px; }
+      .product-content { padding: 36px 32px; }
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats { gap: 32px; }
+      .stat-divider { display: none; }
+      .studio-card { padding: 40px 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 64px 20px 60px; }
+      .hero-title { letter-spacing: -1.5px; }
+      .product-content { padding: 28px 24px; }
+      .product-name { font-size: 26px; }
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── DIVIDER LINE ── */
+    .section-divider {
+      max-width: 1120px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+    }
+
+    .section-divider hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="https://snowai.studio" class="logo">
+        <div class="logo-mark">❄️</div>
+        <span class="logo-name">Snow <span>AI</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#products">Products</a>
+        <a href="https://snowai.studio">Studio</a>
+        <a href="mailto:hello@snowai.studio">Contact</a>
+        <a href="https://doctor-notes-beta.vercel.app" class="nav-cta">Try Doctor Notes →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero fade-up visible">
+    <div class="hero-eyebrow">
+      ❄️ Snow AI Studio
+    </div>
+    <h1 class="hero-title">
+      Building AI that actually<br>
+      <span class="highlight">helps people</span>
+    </h1>
+    <p class="hero-subtitle">
+      We build thoughtful AI-powered products that solve real problems — for patients, athletes, caregivers, and everyone in between.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Products in pipeline</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Live today</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Problems to solve</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTS ── -->
+  <section id="products" class="products-section">
+
+    <div class="section-header fade-up">
+      <div class="section-label">Our Products</div>
+      <h2 class="section-title">Everything we're building</h2>
+    </div>
+
+    <!-- FEATURED — Doctor Notes -->
+    <div class="product-featured fade-up" style="transition-delay:0.1s">
+      <div class="product-content">
+        <div class="product-content-inner">
+          <div class="product-status status-live">Live Now</div>
+          <div class="product-icon">🩺</div>
+          <h2 class="product-name">Doctor Notes</h2>
+          <p class="product-tagline">
+            AI-powered medical scribe for patients and caregivers. Record any appointment, get a plain-English summary, and never forget what your doctor said.
+          </p>
+          <div class="product-tags">
+            <span class="tag">iOS &amp; Android</span>
+            <span class="tag">Web App</span>
+            <span class="tag">AI Transcription</span>
+            <span class="tag">SMS Alerts</span>
+            <span class="tag">Medication Tracking</span>
+          </div>
+        </div>
+        <div class="product-actions">
+          <a href="https://doctor-notes-beta.vercel.app" class="btn-launch btn-primary-product">
+            Try It Free →
+          </a>
+          <a href="https://dn-landing.vercel.app" class="btn-launch btn-secondary-product">
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div class="product-visual visual-orange">
+        <div class="phone-mock">
+          <div class="phone-screen-mock">
+            <div class="phone-bar">
+              <div class="phone-notch"></div>
+            </div>
+            <div class="phone-app app-orange">
+              <div class="phone-header">🩺 Doctor Notes</div>
+              <div class="phone-card">
+                <div class="phone-pill">Visit Summary</div>
+                <div class="phone-card-title">Dr. Johnson — Cardiology</div>
+                <div class="phone-card-line"></div>
+                <div class="phone-card-line"></div>
+                <div class="phone-card-line"></div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-title">✅ Action Items</div>
+                <div class="phone-card-line" style="width:85%"></div>
+                <div class="phone-card-line" style="width:65%"></div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-title">💊 Medications</div>
+                <div class="phone-card-line" style="width:75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 CARDS GRID -->
+    <div class="products-grid">
+
+      <!-- Women's Sports App -->
+      <div class="product-card fade-up" style="transition-delay:0.15s">
+        <div class="card-top-bar bar-rose"></div>
+        <div class="card-body">
+          <div class="product-status status-building" style="margin-bottom:16px">In Development</div>
+          <div class="card-icon">⚽</div>
+          <h3 class="card-name">Women's Sports</h3>
+          <p class="card-desc">
+            The all-in-one platform for women's sports — scores, standings, highlights, and community for soccer, basketball, tennis, volleyball, and more.
+          </p>
+          <div class="card-features">
+            <div class="card-feature">
+              <div class="card-feature-dot dot-rose"></div>
+              Live scores & standings
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-rose"></div>
+              Athlete profiles & stats
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-rose"></div>
+              Fan community & alerts
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-rose"></div>
+              Multi-sport coverage
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta" style="cursor:default">Coming Soon</span>
+          <span class="card-notify">⚽ NWSL · WNBA · WTA</span>
+        </div>
+      </div>
+
+      <!-- Healthcare Recruiting -->
+      <div class="product-card fade-up" style="transition-delay:0.2s">
+        <div class="card-top-bar bar-green"></div>
+        <div class="card-body">
+          <div class="product-status status-building" style="margin-bottom:16px">In Development</div>
+          <div class="card-icon">🏥</div>
+          <h3 class="card-name">MedHire</h3>
+          <p class="card-desc">
+            AI-powered healthcare recruiting that matches the right clinicians to the right roles — faster, smarter, and without the staffing agency markup.
+          </p>
+          <div class="card-features">
+            <div class="card-feature">
+              <div class="card-feature-dot dot-green"></div>
+              AI candidate matching
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-green"></div>
+              License verification
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-green"></div>
+              Shift marketplace
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-green"></div>
+              Direct hospital connections
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta" style="cursor:default">Coming Soon</span>
+          <span class="card-notify">🏥 Nurses · PAs · NPs</span>
+        </div>
+      </div>
+
+      <!-- Anime Gym -->
+      <div class="product-card fade-up" style="transition-delay:0.25s">
+        <div class="card-top-bar bar-purple"></div>
+        <div class="card-body">
+          <div class="product-status status-building" style="margin-bottom:16px">In Development</div>
+          <div class="card-icon">🏋️</div>
+          <h3 class="card-name">Anime Gym</h3>
+          <p class="card-desc">
+            Your anime character is your fitness coach. Train like Goku, lift like All Might — an AI gym assistant powered by the characters you love.
+          </p>
+          <div class="card-features">
+            <div class="card-feature">
+              <div class="card-feature-dot dot-purple"></div>
+              Anime AI personal trainer
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-purple"></div>
+              Workout generation
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-purple"></div>
+              Character progression
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot dot-purple"></div>
+              Community challenges
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta" style="cursor:default">Coming Soon</span>
+          <span class="card-notify">💪 Powered by Claude AI</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── DIVIDER ── -->
+  <div class="section-divider">
+    <hr />
+  </div>
+
+  <!-- ── STUDIO CTA ── -->
+  <section class="studio-section">
+    <div class="studio-card fade-up">
+      <div class="studio-eyebrow">Snow AI Studio</div>
+      <h2 class="studio-title">Built with AI, for real people</h2>
+      <p class="studio-subtitle">
+        Every product we build starts with a real problem and a real person. We move fast, ship quality, and use AI where it actually matters.
+      </p>
+      <div class="studio-actions">
+        <a href="https://snowai.studio" class="btn-studio-primary">
+          Visit Snow AI →
+        </a>
+        <a href="mailto:hello@snowai.studio" class="btn-studio-secondary">
+          Work With Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span style="font-size:18px">❄️</span>
+        <span class="footer-copy">© 2026 Snow AI Studio. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://snowai.studio">Studio</a>
+        <a href="https://doctor-notes-beta.vercel.app">Doctor Notes</a>
+        <a href="mailto:hello@snowai.studio">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
