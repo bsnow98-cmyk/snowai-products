@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Snow Labs</title>
+  <meta name="description" content="The Snow Labs catalog: Doctor Notes (live), Anime Gym, Women's Sports, and MedHire. Friendly tools integrated with AI, for the people the rest of tech keeps forgetting." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/site.css" />
+
+  <style>
+    /* ───── HERO ───── */
+    .phero { padding: 60px 0 48px; text-align: center; }
+    .phero .eyebrow { margin-bottom: 24px; }
+    .phero h1 { margin: 0 auto 24px; max-width: 15ch; }
+    .phero .lede { margin: 0 auto 34px; font-size: 20px; max-width: 62ch; text-align: center; }
+    .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .legend .status {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 999px; padding: 9px 16px; font-size: 11px;
+      box-shadow: 0 8px 20px -16px rgba(33,27,46,0.4);
+    }
+
+    /* ───── PRODUCT CARDS ───── */
+    .catalog { padding: 32px 0 64px; display: grid; gap: 28px; }
+
+    .pcard {
+      position: relative; overflow: hidden;
+      border-radius: var(--r-lg);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: 0 36px 80px -54px rgba(var(--accent-rgb), 0.8);
+    }
+    .pcard-grid {
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 52px;
+      align-items: center; padding: 48px 48px 48px 52px; position: relative; z-index: 1;
+    }
+    .pcard.reverse .pcard-grid { grid-template-columns: 0.95fr 1.05fr; }
+    .pcard.reverse .pcard-visual { order: -1; }
+    .pcard::before {
+      content: ''; position: absolute; top: -130px; right: -90px;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(var(--accent-rgb),0.30), rgba(var(--accent-rgb),0));
+      pointer-events: none;
+    }
+    .pcard.reverse::before { right: auto; left: -90px; }
+
+    .pcard-index { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink-3); margin-bottom: 16px; }
+    .pcard .badge { margin-bottom: 18px; }
+    .pcard h2 { margin-bottom: 16px; }
+    .pcard .lede { margin-bottom: 24px; max-width: 50ch; }
+    .pcard-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 26px; }
+    .pcard-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .pcard-meta { margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+    .pcard-meta b { color: var(--ink); }
+
+    /* "built for" callout for the non-featured products */
+    .builtfor {
+      background: var(--accent-bg);
+      border-radius: var(--r-md);
+      padding: 26px 28px;
+      width: 100%;
+    }
+    .builtfor .k { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 8px; }
+    .builtfor .v { font-family: var(--serif); font-weight: 600; font-size: 22px; line-height: 1.25; color: var(--ink); letter-spacing: -0.015em; margin-bottom: 18px; }
+    .builtfor .row { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); padding: 7px 0; border-top: 1px solid rgba(var(--accent-rgb),0.18); }
+    .builtfor .row b { color: var(--ink); font-weight: 700; }
+    .builtfor .emoji {
+      width: 120px; height: 120px; border-radius: 28px; margin: 0 auto 22px;
+      display: flex; align-items: center; justify-content: center; font-size: 60px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 24px 44px -20px rgba(var(--accent-rgb),0.7);
+    }
+
+    /* phone (Doctor Notes) — same as home */
+    .phone-stage { display: flex; justify-content: center; align-items: center; position: relative; }
+    .phone-stage::before { content: ''; position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--accent-rgb),0.18) 0%, transparent 68%); pointer-events: none; }
+    .phone { width: 270px; background: #1F1B2E; border-radius: 44px; padding: 9px; box-shadow: 0 50px 90px -34px rgba(var(--accent-rgb),0.5), 0 30px 60px -30px rgba(33,27,46,0.5), inset 0 0 0 1px rgba(255,255,255,0.08); position: relative; z-index: 1; transform: rotate(-2deg); }
+    .phone-screen { background: #FFFCF7; border-radius: 36px; overflow: hidden; }
+    .phone-statusbar { height: 38px; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 11px; font-weight: 700; color: var(--ink); }
+    .phone-statusbar .bars { display: inline-flex; gap: 2px; align-items: flex-end; }
+    .phone-statusbar .bar { width: 3px; background: var(--ink); border-radius: 1px; }
+    .phone-statusbar .bar:nth-child(1){height:4px} .phone-statusbar .bar:nth-child(2){height:6px} .phone-statusbar .bar:nth-child(3){height:8px} .phone-statusbar .bar:nth-child(4){height:10px}
+    .phone-app { padding: 8px 16px 20px; }
+    .phone-app-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 0 12px; }
+    .phone-app-title { font-family: var(--serif); font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.02em; }
+    .phone-app-title span { color: var(--accent); }
+    .phone-app-icon { width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .phone-label { font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin: 12px 0 6px; }
+    .phone-card { background: #fff; border: 1px solid rgba(33,27,46,0.06); border-radius: 16px; padding: 12px 14px; margin-bottom: 8px; box-shadow: 0 4px 12px -6px rgba(33,27,46,0.1); }
+    .phone-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .phone-card-title { font-size: 12px; font-weight: 700; color: var(--ink); }
+    .phone-card-time { font-family: var(--mono); font-size: 9px; color: var(--ink-3); }
+    .phone-pill { display: inline-block; font-size: 9px; font-weight: 700; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; background: var(--accent-bg); color: var(--accent-ink); }
+    .phone-line { height: 6px; background: #EFEAE3; border-radius: 3px; margin-bottom: 5px; }
+    .phone-action { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink-2); margin-bottom: 6px; font-weight: 500; }
+    .phone-check { width: 15px; height: 15px; border-radius: 50%; background: #ECFDF5; color: #047857; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 9px; }
+    .phone-med { display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 600; color: var(--ink); padding: 4px 0; }
+    .phone-med small { color: var(--ink-3); font-size: 10px; font-weight: 400; }
+
+    .points { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-bottom: 26px; }
+    .points li { font-size: 14.5px; font-weight: 500; color: var(--ink-2); display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+    .points li::before { content: '✓'; flex-shrink: 0; margin-top: 1px; width: 19px; height: 19px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; background: var(--accent-bg); color: var(--accent-ink); }
+
+    /* ───── CLOSING CTA ───── */
+    .cta { padding: 28px var(--pad) 64px; }
+    .cta-card {
+      max-width: var(--max); margin: 0 auto; text-align: center;
+      border-radius: 36px; padding: 64px 40px; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #FB5E3B, #FF9F45);
+      box-shadow: 0 40px 80px -40px rgba(251,94,59,0.7);
+    }
+    .cta-card::after {
+      content: ''; position: absolute; bottom: -120px; left: -60px; width: 320px; height: 320px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%); pointer-events: none;
+    }
+    .cta-card h2 { color: #fff; margin: 0 auto 16px; max-width: 20ch; position: relative; z-index: 1; }
+    .cta-card h2 em { color: #FFF7ED; -webkit-text-fill-color: #FFF7ED; }
+    .cta-card p { color: #FFF1EB; font-size: 18px; max-width: 52ch; margin: 0 auto 30px; position: relative; z-index: 1; }
+    .cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .cta-actions .btn-white { background: #fff; color: var(--accent-ink); }
+    .cta-actions .btn-white:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -12px rgba(0,0,0,0.35); }
+    .cta-actions .btn-clear { background: rgba(255,255,255,0.16); color: #fff; border-color: rgba(255,255,255,0.5); }
+    .cta-actions .btn-clear:hover { background: rgba(255,255,255,0.26); }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 900px) {
+      .pcard-grid, .pcard.reverse .pcard-grid { grid-template-columns: 1fr; gap: 36px; padding: 36px 26px; }
+      .pcard .pcard-visual, .pcard.reverse .pcard-visual { order: -1; }
+      .points { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .points { grid-template-columns: 1fr; }
+      .phone { transform: none; }
+      .cta-card { padding: 48px 24px; border-radius: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+
+  <!-- ───────────── NAV ───────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">Snow<span class="logo-mono">Labs</span></a>
+      <div class="nav-links">
+        <a href="/products" class="active">Products</a>
+        <a href="/#writing">Writing</a>
+        <a href="https://snowai.studio/services/">Consulting</a>
+        <a href="https://app.snowai.studio" class="nav-cta">Try Doctor Notes <span class="arr">→</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ───────────── HERO ───────────── -->
+  <section class="phero">
+    <div class="wrap">
+      <span class="eyebrow">✦ Products · Snow Labs</span>
+      <h1 class="h-display">Tools for the people <em>tech forgot.</em></h1>
+      <p class="lede">
+        Every Snow Labs product starts with one specific person who's been overlooked — a caregiver in a waiting room, a fan of a league nobody covers, a nurse buried in staffing-agency markup. One person builds them. Here's the whole catalog, with honest status on each.
+      </p>
+      <div class="legend">
+        <div class="status"><span class="dot dot-live"></span>Live — in the stores</div>
+        <div class="status"><span class="dot dot-alpha"></span>Alpha — early build</div>
+        <div class="status"><span class="dot dot-research"></span>Researching</div>
+        <div class="status"><span class="dot dot-design"></span>Designing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── CATALOG ───────────── -->
+  <div class="wrap">
+    <div class="catalog">
+
+      <!-- 01 · Doctor Notes -->
+      <section id="doctor-notes" class="pcard t-coral reveal">
+        <div class="pcard-grid">
+          <div>
+            <div class="pcard-index">01 / 04</div>
+            <span class="badge"><span class="dot"></span>Live · Doctor Notes</span>
+            <h2 class="h-section">Never forget what your doctor said <em>— again.</em></h2>
+            <p class="lede">An AI medical scribe for patients and the family members caring for them. Record any appointment and get a plain-English summary, action items, medications, and reminders — so nothing said in the room gets lost on the drive home.</p>
+            <ul class="points">
+              <li>AI transcription of the visit</li>
+              <li>Plain-language summary</li>
+              <li>Action items &amp; follow-ups</li>
+              <li>Medication tracking</li>
+              <li>Symptom log over time</li>
+              <li>Push alerts for reminders</li>
+            </ul>
+            <div class="pcard-actions">
+              <a href="https://app.snowai.studio" class="btn btn-accent">Try Doctor Notes free <span class="arr">→</span></a>
+              <a href="https://doctornotes.snowai.studio" class="btn btn-soft">Learn more</a>
+            </div>
+            <div class="pcard-meta">
+              <span><b>iOS</b> · <b>Android</b> · <b>Web</b></span>
+              <span>Free to start — 3 visits</span>
+              <span>Pro from <b>$6.99/mo</b></span>
+            </div>
+          </div>
+
+          <!-- ⚠ PLACEHOLDER: swap stylized phone for a real Doctor Notes screenshot. -->
+          <div class="pcard-visual phone-stage">
+            <div class="phone" aria-label="Doctor Notes app preview">
+              <div class="phone-screen">
+                <div class="phone-statusbar"><span>9:41</span><span class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></span></div>
+                <div class="phone-app">
+                  <div class="phone-app-head"><div class="phone-app-title">Doctor <span>Notes</span></div><div class="phone-app-icon">🩺</div></div>
+                  <div class="phone-label">Today's visit</div>
+                  <div class="phone-card">
+                    <div class="phone-card-head"><div class="phone-card-title">Dr. Johnson · Cardiology</div><div class="phone-card-time">28 min</div></div>
+                    <span class="phone-pill">Summary ready</span>
+                    <div class="phone-line" style="margin-top:10px;width:96%"></div><div class="phone-line" style="width:88%"></div><div class="phone-line" style="width:62%"></div>
+                  </div>
+                  <div class="phone-label">Action items</div>
+                  <div class="phone-card">
+                    <div class="phone-action"><div class="phone-check">✓</div>Schedule echocardiogram within 2 weeks</div>
+                    <div class="phone-action"><div class="phone-check">✓</div>Lower sodium &lt; 1500mg / day</div>
+                    <div class="phone-action" style="opacity:0.6"><div class="phone-check" style="background:#FEF3C7;color:#B45309">·</div>Recheck blood pressure next Monday</div>
+                  </div>
+                  <div class="phone-label">Medications</div>
+                  <div class="phone-card">
+                    <div class="phone-med">Lisinopril 10mg <small>1× daily</small></div>
+                    <div class="phone-med">Atorvastatin 20mg <small>nightly</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · Anime Gym -->
+      <section id="anime-gym" class="pcard t-violet reverse reveal">
+        <div class="pcard-grid">
+          <div>
+            <div class="pcard-index">02 / 04</div>
+            <span class="badge"><span class="dot"></span>Alpha</span>
+            <h2 class="h-section">Train like it's a <em>shonen arc.</em></h2>
+            <p class="lede">Train like Goku. Lift like All Might. An anime-character AI coach that turns your workout into a story arc you actually want to finish — quests, rivals, power-ups, and a coach who talks like your favorite series instead of a spreadsheet.</p>
+            <div class="pcard-tags">
+              <span class="chip">AI coach</span><span class="chip">Story-driven</span><span class="chip">Mobile</span>
+            </div>
+            <div class="pcard-actions">
+              <a href="mailto:hello@snowai.studio?subject=Anime%20Gym%20early%20access" class="btn btn-accent">Get early access <span class="arr">→</span></a>
+            </div>
+          </div>
+          <div class="pcard-visual">
+            <div class="builtfor">
+              <div class="emoji">🥋</div>
+              <div class="k">Built for</div>
+              <div class="v">Anime fans who bounce off generic fitness apps</div>
+              <div class="row"><b>Status</b> · Playable alpha — early access</div>
+              <div class="row"><b>Shape</b> · Mobile app, AI coach</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · Women's Sports -->
+      <section id="womens-sports" class="pcard t-rose reveal">
+        <div class="pcard-grid">
+          <div>
+            <div class="pcard-index">03 / 04</div>
+            <span class="badge"><span class="dot"></span>Researching</span>
+            <h2 class="h-section">Every league, <em>one home.</em></h2>
+            <p class="lede">Scores, standings, athlete profiles, and a real fan community for the leagues ESPN keeps forgetting — NWSL, WNBA, WTA, and beyond. One app, every league, no scrolling past men's highlights to find the score.</p>
+            <div class="pcard-tags">
+              <span class="chip">Live scores</span><span class="chip">Community</span><span class="chip">Multi-league</span>
+            </div>
+            <div class="pcard-actions">
+              <a href="mailto:hello@snowai.studio?subject=Women%27s%20Sports%20app" class="btn btn-accent">Share what you'd want <span class="arr">→</span></a>
+            </div>
+          </div>
+          <div class="pcard-visual">
+            <div class="builtfor">
+              <div class="emoji">🏆</div>
+              <div class="k">Built for</div>
+              <div class="v">Fans of leagues nobody else covers</div>
+              <div class="row"><b>Status</b> · Researching — talking to fans now</div>
+              <div class="row"><b>Shape</b> · Scores, standings, community</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · MedHire -->
+      <section id="medhire" class="pcard t-blue reverse reveal">
+        <div class="pcard-grid">
+          <div>
+            <div class="pcard-index">04 / 04</div>
+            <span class="badge"><span class="dot"></span>Designing</span>
+            <h2 class="h-section">Hiring without the <em>middleman markup.</em></h2>
+            <p class="lede">AI-matched healthcare hiring without the staffing-agency markup. Direct connections between hospitals and the clinicians who actually want the shift — matched on specialty, schedule, and fit, not on whoever the recruiter called first.</p>
+            <div class="pcard-tags">
+              <span class="chip">AI matching</span><span class="chip">Healthcare</span><span class="chip">Marketplace</span>
+            </div>
+            <div class="pcard-actions">
+              <a href="mailto:hello@snowai.studio?subject=MedHire" class="btn btn-accent">Follow along <span class="arr">→</span></a>
+            </div>
+          </div>
+          <div class="pcard-visual">
+            <div class="builtfor">
+              <div class="emoji">🩺</div>
+              <div class="k">Built for</div>
+              <div class="v">Nurses, PAs, NPs &amp; the hospitals chasing them</div>
+              <div class="row"><b>Status</b> · In design — shaping the first build</div>
+              <div class="row"><b>Shape</b> · Two-sided marketplace</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ───────────── CLOSING CTA ───────────── -->
+  <section class="cta">
+    <div class="cta-card reveal">
+      <h2 class="h-section">Building something for someone <em>overlooked?</em></h2>
+      <p>Doctor Notes is live today, and three more are on the bench. Start free, or tell me which one you want next — I read every email.</p>
+      <div class="cta-actions">
+        <a href="https://app.snowai.studio" class="btn btn-white">Try Doctor Notes free <span class="arr">→</span></a>
+        <a href="mailto:hello@snowai.studio" class="btn btn-clear">Email Brian</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── FOOTER ───────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">Snow<span class="logo-mono">Labs</span></a>
+          <p>A one-person studio building friendly tools integrated with AI — and a consulting practice helping leaders ship AI that actually works. Founded by Brian Snow.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <a href="https://app.snowai.studio">Doctor Notes</a>
+          <a href="#anime-gym">Anime Gym</a>
+          <a href="#womens-sports">Women's Sports</a>
+          <a href="#medhire">MedHire</a>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/">Home</a>
+          <a href="https://snowai.studio/services/">Consulting</a>
+          <a href="https://snowai.studio/blog/">Writing</a>
+          <a href="https://snowai.studio/contact/">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Elsewhere</h4>
+          <a href="mailto:hello@snowai.studio">Email</a>
+          <a href="#">Twitter / X</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Snow Labs · Built by <a href="mailto:hello@snowai.studio">Brian Snow</a> · I read every email.</span>
+        <span>v4.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
